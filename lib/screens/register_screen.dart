@@ -52,6 +52,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
           'email': enterEmail,
           'password': enterPass,
           'imageurl': imageUrl,
+          'userId': userCredential.user!.uid,
         });
         if (context.mounted) {
           Navigator.push(context,

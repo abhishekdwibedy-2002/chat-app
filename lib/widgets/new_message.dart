@@ -10,7 +10,7 @@ class NewMessage extends StatefulWidget {
 }
 
 class _NewMessageState extends State<NewMessage> {
-  var messageController = TextEditingController();
+  final messageController = TextEditingController();
 
   @override
   void dispose() {
@@ -24,6 +24,7 @@ class _NewMessageState extends State<NewMessage> {
       return;
     }
     FocusScope.of(context).unfocus();
+    messageController.clear();
 
     final user = FirebaseAuth.instance.currentUser!;
     final userData = await FirebaseFirestore.instance
@@ -37,7 +38,6 @@ class _NewMessageState extends State<NewMessage> {
       'username': userData.data()!['username'],
       'imgUrl': userData.data()!['imageurl'],
     });
-    messageController.clear;
   }
 
   @override
@@ -54,7 +54,11 @@ class _NewMessageState extends State<NewMessage> {
               decoration: const InputDecoration(labelText: 'Send a Message'),
             ),
           ),
-          IconButton(onPressed: sendMessage, icon: const Icon(Icons.send))
+          IconButton(
+            color: Theme.of(context).colorScheme.primary,
+            onPressed: sendMessage,
+            icon: const Icon(Icons.send),
+          ),
         ],
       ),
     );
